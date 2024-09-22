@@ -1,4 +1,10 @@
-{{ config(materialized='table') }}
+{{ 
+    config(
+        materialized='incremental',
+        unique_key='event_id'
+
+    ) 
+}}
 
 SELECT
     session_id,
@@ -9,3 +15,5 @@ SELECT
 
 FROM {{ ref('stg_bingeflix__events') }}
 
+WHERE TRUE
+{{incremental_condition('created_at')}}

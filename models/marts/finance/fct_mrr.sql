@@ -36,7 +36,7 @@ months AS (
 -- Logic CTEs
 -- Create subscription period start_month and end_month ranges
 subscription_periods AS (
-    SELECT
+    {# SELECT
         subscription_id,
         user_id,
         plan_name,
@@ -53,7 +53,9 @@ subscription_periods AS (
             ELSE end_month
         END AS end_month
     FROM
-        monthly_subscriptions
+        monthly_subscriptions #}
+
+    SELECT * FROM {{ ref('int_subscription_periods') }}
 ),
 
 -- Determine when given subscription plan's first and most recent months
